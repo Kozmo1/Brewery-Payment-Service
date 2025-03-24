@@ -12,14 +12,14 @@ const PORT = process.env.PORT ?? "3003";
 const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export interface Config {
-	enviroment: string;
+	environment: string;
 	breweryApiUrl: string;
 	jwtSecret: string;
 	port: number;
 }
 
 export const config: Config = {
-	enviroment: ENVIROMENT,
+	environment: ENVIROMENT,
 	breweryApiUrl: BREWERY_API_URL,
 	jwtSecret: JWT_SECRET,
 	port: parseInt(PORT, 10),

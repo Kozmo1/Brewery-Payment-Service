@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { config } from "../config/config";
 
 export interface AuthRequest extends Request {
-	user?: { id: string; email: string };
+	user?: { id: number; email: string };
 }
 
 export const verifyToken = (
@@ -19,13 +19,14 @@ export const verifyToken = (
 
 	try {
 		const decoded = jwt.verify(token, config.jwtSecret) as {
-			id: string;
+			sub: string;
 			email: string;
+			iat: number;
+			exp: number;
 		};
-		req.user = decoded;
+		req.user = { id: parseInt(decoded.sub, 10), email: decoded.email };
 		next();
 	} catch (error) {
 		res.status(401).json({ message: "Invalid or expired token" });
-		return;
 	}
 };
